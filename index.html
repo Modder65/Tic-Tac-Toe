@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>Tic-Tac-Toe</h1>
+        </header>
+        <main>
+            <div id="container">
+                <div id="players">
+                    <div class="player">
+                        <p>Player One</p>
+                        <p>X</p>
+                        </form>
+                    </div>
+                    <div class="player">
+                        <p>Player Two</p>
+                        <p>O</p>
+                    </div>
+                </div>
+                <div class="status">
+                    <p></p>
+                </div>
+                <div id="gameBoard">
+                    <div class="gameSquare" data-id="0" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="1" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="2" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="3" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="4" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="5" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="6" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="7" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" data-id="8" onclick="gameBoard.updateDisplay(event)"></div>
+                </div>
+                <button onclick="gameBoard.clearDisplay()">Reset</button>
+            </div>
+        </main>
+    </body>
+</html>

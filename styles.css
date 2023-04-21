@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+header {
+    background-color: rgb(72, 145, 228);
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: ghostwhite;
+}
+
+main {
+    width: 100%;
+    height: 80%;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#players {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.status {
+    height: 10%;
+    width: 100%;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameBoard {
+    width: 274px;
+    height: 304px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: black;
+    border: 1px solid black;
+    gap: 1px;
+}
+
+.gameSquare {
+    width: 90px;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+select {
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    font-size: 24px;
+}
+
+[data-id] {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+button {
+    width: 125px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
+}
