@@ -97,3 +97,26 @@ button {
     border: 2px solid black;
     border-radius: 5px;
 }
+
+#players_interface {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.75);
+    background-color: rgba(188, 188, 188, 0.75);
+    padding: 50px;
+    width: calc(100% - 100px);
+    height: calc(100% - 200px); /* you have to fix this on mobile */
+    left: auto;
+    top: 100px;
+    margin: 50px;
+}
+    #player_one, #player_two {
+        
+    }
+
+    

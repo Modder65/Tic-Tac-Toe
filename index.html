@@ -19,7 +19,7 @@
                         </form>
                     </div>
                     <div class="player">
-                        <p>Player Two</p>
+                        <p id="two">Player Two</p>
                         <p>O</p>
                     </div>
                 </div>
@@ -27,18 +27,24 @@
                     <p></p>
                 </div>
                 <div id="gameBoard">
-                    <div class="gameSquare" data-id="0" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="1" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="2" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="3" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="4" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="5" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="6" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="7" onclick="gameBoard.updateDisplay(event)"></div>
-                    <div class="gameSquare" data-id="8" onclick="gameBoard.updateDisplay(event)"></div>
+                    <div class="gameSquare" id="tile0" data-id="0"></div>
+                    <div class="gameSquare" id="tile1" data-id="1"></div>
+                    <div class="gameSquare" id="tile2" data-id="2"></div>
+                    <div class="gameSquare" id="tile3" data-id="3"></div>
+                    <div class="gameSquare" id="tile4" data-id="4"></div>
+                    <div class="gameSquare" id="tile5" data-id="5"></div>
+                    <div class="gameSquare" id="tile6" data-id="6"></div>
+                    <div class="gameSquare" id="tile7" data-id="7"></div>
+                    <div class="gameSquare" id="tile8" data-id="8"></div>
                 </div>
                 <button onclick="gameBoard.clearDisplay()">Reset</button>
             </div>
         </main>
+
+        <div id="players_interface">
+            <button id="player_one" onclick="gameBoard.choosePlayer(1)" style="margin:auto 20px auto 20px;width:280px;">Player vs. Computer</button>
+            <button id="player_two" onclick="gameBoard.choosePlayer(2)" style="margin:auto 20px auto 20px;width:280px;">Player vs. Player</button>
+        </div>
+
     </body>
 </html>
