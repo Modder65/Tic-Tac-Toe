@@ -3,10 +3,16 @@ let game = document.getElementById("gameBoard");
 let children = game.children;
 let select = document.querySelector("select");
 let message = document.querySelector(".status");
-//starting choice for player 1 is set to X
+//starting choice for player 1 is set to X and name is set to Player One
 let currentPlayer = "X";
 let currentPlayerName = "Player One";
+//gamePlayers tracks whether the player chose to player against another player (gamePlayers = 2) or play against the computer (gamePlayers = 1)
 let gamePlayers = 2;
+//variable used later in updateComputerDisplay function that increments by 1 whenever an X is placed
+//on the board by the player. It's then used to only allow the computer functions to run as long as
+//its value is less than 5. (in a draw game against the computer there will always be 5 X's on the board
+// this prevents the randomChoice function from running infinitely when the game is declared as a draw)
+let moveCounter = 0;
 
 
 //Iterates over every grid cell and assigns them a numbered data attribute and click event for player vs player
@@ -169,17 +175,17 @@ const gameBoard = (() => {
 
     //function that allows the computer to make a random move if its not in a position to win itself or stop the player from winning
     const randomSelection = function () {
-        if (board[4] == undefined || board[4] == null) {
-            document.getElementById("tile4").click();
-        } else if (board[4] != undefined) {
-            let choice = Math.floor(Math.random() * 9);
-            while (board[choice] != undefined) {
-                choice = Math.floor(Math.random() * 9);
+            if (board[4] == undefined || board[4] == null) {
+                document.getElementById("tile4").click();
+            } else if (board[4] != undefined) {
+                let choice = Math.floor(Math.random() * 9);
+                while (board[choice] != undefined) {
+                    choice = Math.floor(Math.random() * 9);
+                }
+                document.getElementById("tile"+choice).click();
+            } else {
+                // do nothing
             }
-            document.getElementById("tile"+choice).click();
-        } else {
-            // do nothing
-        }
     };
 
     //function that analyzes every possible win pattern and displays the winner of the game
@@ -210,7 +216,7 @@ const gameBoard = (() => {
             gameStop();
         } 
         
-        //counter keeps track of how many grid cells contain an X or and O. If every grid cell has an X or an O but nobody has won the game, log "Its a draw" to the console
+        //counter keeps track of how many grid cells contain an X or and O
         counter = 0;
         for (let i = 0; i < children.length; i++) {
             let child = children[i];
@@ -219,11 +225,14 @@ const gameBoard = (() => {
             }
         }
 
+        //if all the grid squares are taken by X's and O's but nobody has been declared the winner, declare a draw game
         if (counter == 9) {
             message.textContent = "It's a draw!";
             counter = 0;
-        }
+        } 
 
+        //sets the correct value for currentPlayer and currentPlayerName depending on whether
+        //the player chose to play against another player or the computer
         if (gamePlayers == 1) {
             if (currentPlayer == "X" && currentPlayerName == "Player One") {
                 currentPlayer = "O";
@@ -270,16 +279,24 @@ const gameBoard = (() => {
             if (board[event.target.getAttribute("data-id")] == undefined) {
                 board[event.target.getAttribute("data-id")] = currentPlayer;
                 event.target.textContent = currentPlayer;
+                moveCounter++;
                 isVictory();
-                    if (canWin() === false) {
-                        if (shouldBlock() === false) {
-                            randomSelection();
+                if (moveCounter < 5) {
+                    setTimeout(() => {
+                        if (canWin() === false) {
+                            if (shouldBlock() === false) {
+                                randomSelection();
+                            } else {
+                                // do nothing
+                            }
                         } else {
                             // do nothing
                         }
-                    } else {
-                        // do nothing
-                    }
+                    }, 1000);
+                } else  {
+                    // do nothing
+                }
+                
             } else {
                 // do nothing
             }
@@ -297,6 +314,7 @@ const gameBoard = (() => {
             child.textContent = "";
             board.pop();
         }
+        moveCounter = 0;
         message.textContent = "";
         document.getElementById('players_interface').style.display = "flex";
     };
