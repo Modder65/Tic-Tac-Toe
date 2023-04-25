@@ -216,7 +216,6 @@ const gameBoard = (() => {
             let child = children[i];
             if (child.textContent != "") {
                 counter++;
-                //console.log(counter);
             }
         }
 
@@ -265,6 +264,7 @@ const gameBoard = (() => {
             }
     };
 
+    //this function runs every time a grid cell is clicked, displaying either an X or an O (only runs when player vs computer is chosen)
     const updateComputerDisplay = function (event) {
         if (currentPlayer == "X") {
             if (board[event.target.getAttribute("data-id")] == undefined) {
