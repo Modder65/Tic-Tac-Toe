@@ -1,3 +1,4 @@
+let container = document.getElementById('container');
 //Accesses grid container and grid cell elements
 let game = document.getElementById("gameBoard");
 let children = game.children;
@@ -35,6 +36,16 @@ function clicked_computer() {
     }
 }
 
+//Removes the background-color styled on the grid-squares after the reset button adds it, and Adds green color-coding to the 3 squares that won the game
+function victoryColor(num1, num2, num3) {
+    for (let i = 0; i < children.length; i++) {
+        let child = children[i];
+        child.style.backgroundColor = "";
+    }
+    document.getElementById("tile"+num1).classList.add("colorDisplay"); 
+    document.getElementById("tile"+num2).classList.add("colorDisplay"); 
+    document.getElementById("tile"+num3).classList.add("colorDisplay"); 
+}
 
 
 //Module that stores the game boards information and functions
@@ -52,11 +63,17 @@ const gameBoard = (() => {
             currentPlayer = "X";
             currentPlayerName = "Player One";
             document.getElementById("two").textContent = "Computer";
+            document.getElementById("players").style.display = "flex";
+            game.style.display = "grid";
+            document.getElementById("resetBtn").style.display = "flex";
         } else {
             clicked_player();
             currentPlayer = "X";
             currentPlayerName = "Player One";
             document.getElementById("two").textContent = "Player Two";
+            document.getElementById("players").style.display = "flex";
+            game.style.display = "grid";
+            document.getElementById("resetBtn").style.display = "flex";
         }
     };
 
@@ -112,7 +129,6 @@ const gameBoard = (() => {
             document.getElementById("tile4").click();
         } else {
             //do nothing
-            console.log("canWin");
             return false;
         }
     };
@@ -175,43 +191,55 @@ const gameBoard = (() => {
 
     //function that allows the computer to make a random move if its not in a position to win itself or stop the player from winning
     const randomSelection = function () {
-            if (board[4] == undefined || board[4] == null) {
-                document.getElementById("tile4").click();
-            } else if (board[4] != undefined) {
-                let choice = Math.floor(Math.random() * 9);
+        if (board[4] == undefined) {
+            document.getElementById("tile4").click();
+        } else if (board[4] == "X" && board[0] == undefined) {
+            document.getElementById("tile0").click();
+        } else if (board[0] == "X" && board[8] == "X" && board[3] == undefined) {
+            document.getElementById("tile3").click();
+        } else if (board[2] == "X" && board[6] == "X" && board[3] == undefined) {
+            document.getElementById("tile3").click();
+        } else {
+            let choice = Math.floor(Math.random() * 9);
                 while (board[choice] != undefined) {
                     choice = Math.floor(Math.random() * 9);
                 }
                 document.getElementById("tile"+choice).click();
-            } else {
-                // do nothing
-            }
+        }     
     };
 
     //function that analyzes every possible win pattern and displays the winner of the game
     const isVictory = function () {
         if (board[0] == currentPlayer && board[4] == currentPlayer && board[8] == currentPlayer) {
+            victoryColor(0, 4, 8);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[2] == currentPlayer && board[4] == currentPlayer && board[6] == currentPlayer) {
+            victoryColor(2, 4, 6);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[0] == currentPlayer && board[1] == currentPlayer && board[2] == currentPlayer) {
+            victoryColor(0, 1, 2);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[3] == currentPlayer && board[4] == currentPlayer && board[5] == currentPlayer) {
+            victoryColor(3, 4, 5);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[6] == currentPlayer && board[7] == currentPlayer && board[8] == currentPlayer) {
+            victoryColor(6, 7, 8);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[0] == currentPlayer && board[3] == currentPlayer && board[6] == currentPlayer) {
+            victoryColor(0, 3, 6);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[1] == currentPlayer && board[4] == currentPlayer && board[7] == currentPlayer) {
+            victoryColor(1, 4, 7);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } else if (board[2] == currentPlayer && board[5] == currentPlayer && board[8] == currentPlayer) {
+            victoryColor(2, 5, 8);
             message.textContent = `${currentPlayerName} Wins!`;
             gameStop();
         } 
@@ -228,6 +256,8 @@ const gameBoard = (() => {
         //if all the grid squares are taken by X's and O's but nobody has been declared the winner, declare a draw game
         if (counter == 9) {
             message.textContent = "It's a draw!";
+            gameStop();
+            container.style.pointerEvents = "auto"; //allows the user to click again so they can reset the board after the game is over
             counter = 0;
         } 
 
@@ -279,6 +309,7 @@ const gameBoard = (() => {
             if (board[event.target.getAttribute("data-id")] == undefined) {
                 board[event.target.getAttribute("data-id")] = currentPlayer;
                 event.target.textContent = currentPlayer;
+                container.style.pointerEvents = "none"; //removes the users ability to click during the computers turn
                 moveCounter++;
                 isVictory();
                 if (moveCounter < 5) {
@@ -292,7 +323,7 @@ const gameBoard = (() => {
                         } else {
                             // do nothing
                         }
-                    }, 1000);
+                    }, 500);
                 } else  {
                     // do nothing
                 }
@@ -301,9 +332,14 @@ const gameBoard = (() => {
                 // do nothing
             }
         } else if (currentPlayer == "O") {
-            board[event.target.getAttribute("data-id")] = currentPlayer;
-            event.target.textContent = currentPlayer;
-            isVictory();
+            if (board[event.target.getAttribute("data-id")] == undefined) {
+                board[event.target.getAttribute("data-id")] = currentPlayer;
+                event.target.textContent = currentPlayer;
+                isVictory();
+                container.style.pointerEvents = "auto"; //allows the user freedom to click again after the end of the computers turn
+            } else {
+                // do nothing
+            }   
         } 
     };
 
@@ -312,11 +348,17 @@ const gameBoard = (() => {
         for (let i = 0; i < children.length; i++) {
             let child = children[i];
             child.textContent = "";
+            child.style.backgroundColor = "#f5f5f5";
+            child.classList.remove("colorDisplay"); 
             board.pop();
+            child.removeAttribute("onclick");
         }
         moveCounter = 0;
         message.textContent = "";
         document.getElementById('players_interface').style.display = "flex";
+        document.getElementById("players").style.display = "none";
+        game.style.display = "none";
+        document.getElementById("resetBtn").style.display = "none";
     };
 
     //function removes onclick event from every grid cell element making it impossible to make a move after a winner is declared until the board is reset

@@ -11,11 +11,12 @@ html, body {
 }
 
 header {
-    background-color: rgb(72, 145, 228);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
     height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 h1 {
@@ -24,7 +25,7 @@ h1 {
 
 main {
     width: 100%;
-    height: 80%;
+    height: 90%;
 }
 
 #container {
@@ -40,7 +41,7 @@ main {
 #players {
     height: 10%;
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: space-around;
     align-items: center;
     text-align: center;
@@ -58,23 +59,41 @@ main {
 }
 
 #gameBoard {
-    width: 274px;
-    height: 304px;
-    display: grid;
+    width: 90%;
+    height: 50%;
+    display: none;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    background-color: black;
-    border: 1px solid black;
-    gap: 1px;
+    gap: 12px;
+}
+
+#resetBtn {
+    display: none;
 }
 
 .gameSquare {
-    width: 90px;
-    height: 100px;
-    background-color: white;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.657);
+    border-radius: 20px;
+    justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition-property: all;
+    transition-duration: 200ms;
+}
+
+.gameSquare:hover {
+    transform: scale(1.05);
+    background-color: rgb(233, 233, 233);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.096);
+}
+
+.animateDisplay {
+    font-size: 42px;
+    transition: font-size 0.3s; 
 }
 
 select {
@@ -89,32 +108,93 @@ select {
     font-weight: bold;
 }
 
-button {
-    width: 125px;
-    height: 50px;
-    font-size: 24px;
-    font-weight: bold;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
 #players_interface {
     position: absolute;
     z-index: 10;
     display: flex;
+    flex-direction: column;
+    gap: 50px;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     border-radius: 10px;
-    border: 2px solid rgba(0,0,0,0.75);
+    width: 95%;
+    height: 500px;
     background-color: rgba(188, 188, 188, 0.75);
-    padding: 50px;
-    width: calc(100% - 100px);
-    height: calc(100% - 200px); /* you have to fix this on mobile */
-    left: auto;
-    top: 100px;
-    margin: 50px;
+    background-color: rgb(9,9,121);
+    background: radial-gradient(circle, rgba(9,9,121,0.5) 0%, rgba(9,9,121,0.5) 35%, rgba(0,212,255,0.5) 100%);
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    left: 50%;
+    top: 50%;
+    margin-left: -47.5%;
+    margin-top: -225px;
+    
 }
 
+#player_one, #player_two, #resetBtn {
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px 30px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+}
 
-    
+#resetBtn {
+    display: none;
+}
+
+#player_one:hover, #player_two:hover, #resetBtn:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+
+#player_one:active, #player_two:active, #resetBtn:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+}
+
+#player_one:focus, #player_two:focus, #resetBtn:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+}
+
+#player_one:disabled, #player_two:disabled, #resetBtn:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+img {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: rgba(0,0,0,0.15);
+    /*background-color: rgba(188, 188, 188, 1);*/
+}
+
+.colorDisplay {
+    background-color: rgb(45, 145, 45);
+    transition: background-color 1000ms;
+}
+
+.colorDisplay:hover {
+    background-color: rgb(45, 145, 45);
+}
+
+@media screen and (min-width: 320px) {
+    #gameBoard {
+        width: 350px;
+        height: 400px;
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
