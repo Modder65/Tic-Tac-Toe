@@ -199,7 +199,40 @@ const gameBoard = (() => {
             document.getElementById("tile3").click();
         } else if (board[2] == "X" && board[6] == "X" && board[3] == undefined) {
             document.getElementById("tile3").click();
+        } else if (board[2] == "X" && board[3] == "X" && board[7] == "X" && board[8] == undefined) {
+            document.getElementById("tile8").click();
+        } else if (board[2] == "X" && board[3] == "X" && board[1] == undefined) {
+            document.getElementById("tile1").click();
+        } else if (board[0] == "X" && board[5] == "X" && board[7] == "X" && board[6] == undefined) {
+            document.getElementById("tile6").click();
+        } else if (board[0] == "X" && board[5] == "X" && board[1] == undefined) {
+            document.getElementById("tile1").click();
+        } else if (board[6] == "X" && board[5] == "X" && board[1] == "X" && board[0] == undefined) {
+            document.getElementById("tile0").click();
+        } else if (board[6] == "X" && board[5] == "X" && board[7] == undefined) {
+            document.getElementById("tile7").click();
+        } else if (board[8] == "X" && board[3] == "X" && board[1] == "X" && board[2] == undefined) {
+            document.getElementById("tile2").click();
+        } else if (board[8] == "X" && board[3] == "X" && board[7] == undefined) {
+            document.getElementById("tile7").click();
+        } else if (board[0] == "X" && board[7] == "X" && board[6] == undefined) {
+            document.getElementById("tile6").click();
+        } else if (board[2] == "X" && board[7] == "X" && board[8] == undefined) {
+            document.getElementById("tile8").click();
+        } else if (board[1] == "X" && board[6] == "X" && board[0] == undefined) {
+            document.getElementById("tile0").click();
+        } else if (board[1] == "X" && board[8] == "X" && board[2] == undefined) {
+            document.getElementById("tile2").click();
+        } else if (board[3] == "X" && board[7] == "X" && board[6] == undefined) {
+            document.getElementById("tile6").click();
+        } else if (board[5] == "X" && board[7] == "X" && board[8] == undefined) {
+            document.getElementById("tile8").click();
+        } else if (board[1] == "X" && board[3] == "X" && board[0] == undefined) {
+            document.getElementById("tile0").click();
+        } else if (board[1] == "X" && board[5] == "X" && board[2] == undefined) {
+            document.getElementById("tile2").click();
         } else {
+            console.log("Random");
             let choice = Math.floor(Math.random() * 9);
                 while (board[choice] != undefined) {
                     choice = Math.floor(Math.random() * 9);
