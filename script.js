@@ -2,6 +2,7 @@ let container = document.getElementById('container');
 //Accesses grid container and grid cell elements
 let game = document.getElementById("gameBoard");
 let children = game.children;
+let text = document.getElementsByClassName('gameSquare');
 let select = document.querySelector("select");
 let message = document.querySelector(".status");
 //starting choice for player 1 is set to X and name is set to Player One
@@ -320,7 +321,8 @@ const gameBoard = (() => {
             if (currentPlayer == "X") {
                 if (event.target.textContent == '') {
                     board[event.target.getAttribute("data-id")] = currentPlayer;
-                    event.target.textContent = currentPlayer;
+                    event.target.innerHTML = "<p>"+currentPlayer+"</p>";
+                    event.target.querySelector('p').classList.add('scale-up-center');
                     isVictory();
                 } else {
                     // do nothing
@@ -328,7 +330,8 @@ const gameBoard = (() => {
             } else if (currentPlayer == "O") {
                 if (event.target.textContent == '') {
                     board[event.target.getAttribute("data-id")] = currentPlayer;
-                    event.target.textContent = currentPlayer;
+                    event.target.innerHTML = "<p>"+currentPlayer+"</p>";
+                    event.target.querySelector('p').classList.add('scale-up-center');
                     isVictory();
                 } else {
                     // do nothing
@@ -341,7 +344,8 @@ const gameBoard = (() => {
         if (currentPlayer == "X") {
             if (board[event.target.getAttribute("data-id")] == undefined) {
                 board[event.target.getAttribute("data-id")] = currentPlayer;
-                event.target.textContent = currentPlayer;
+                event.target.innerHTML = "<p>"+currentPlayer+"</p>";
+                event.target.querySelector('p').classList.add('scale-up-center');
                 container.style.pointerEvents = "none"; //removes the users ability to click during the computers turn
                 moveCounter++;
                 isVictory();
@@ -367,7 +371,8 @@ const gameBoard = (() => {
         } else if (currentPlayer == "O") {
             if (board[event.target.getAttribute("data-id")] == undefined) {
                 board[event.target.getAttribute("data-id")] = currentPlayer;
-                event.target.textContent = currentPlayer;
+                event.target.innerHTML = "<p>"+currentPlayer+"</p>";
+                event.target.querySelector('p').classList.add('scale-up-center');
                 isVictory();
                 container.style.pointerEvents = "auto"; //allows the user freedom to click again after the end of the computers turn
             } else {
@@ -378,14 +383,20 @@ const gameBoard = (() => {
 
     //function that clears the game board of content and re-adds the onclick any to each grid cell
     const clearDisplay = function () {
+        for (let i = 0; i < text.length; i++) {
+            let child = text[i];
+            child.innerHTML = "<p></p>";
+            child.classList.remove('scale-up-center');
+        }
+
         for (let i = 0; i < children.length; i++) {
             let child = children[i];
-            child.textContent = "";
             child.style.backgroundColor = "#f5f5f5";
             child.classList.remove("colorDisplay"); 
-            board.pop();
             child.removeAttribute("onclick");
+            board.pop();
         }
+
         moveCounter = 0;
         message.textContent = "";
         document.getElementById('players_interface').style.display = "flex";
