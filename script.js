@@ -232,6 +232,8 @@ const gameBoard = (() => {
             document.getElementById("tile0").click();
         } else if (board[1] == "X" && board[5] == "X" && board[2] == undefined) {
             document.getElementById("tile2").click();
+        } else if (board[8] == "X" && board[4] == "X" && board[2] == undefined) {
+            document.getElementById("tile2").click();
         } else {
             console.log("Random");
             let choice = Math.floor(Math.random() * 9);
